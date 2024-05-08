@@ -1,42 +1,39 @@
-#include <iostream>
+// C++ program to implement iterative Binary Search
+#include <bits/stdc++.h>
 using namespace std;
 
-int main()
+// An iterative binary search function.
+int binarySearch(int arr[], int low, int high, int x)
 {
-    int n;
-    cout<<"Enter the size of array =>";
-    cin>>n;
-    
-    int arr[n];
-    cout<<"Enter "<<n<<" Integers in ascending order => \n";
-    for(int i=0;i<n;i++)
-        cin>>arr[i];    
-    
-    int target;
-    cout<<"Enter the number you want to search => ";
-    cin>>target;
-    
-    int start = 0, end = n-1, mid;
-    int pos= -1;
-    
-    while(start<=end)
-    {
-        mid = (start+end)/2;
-        
-        if(arr[mid]==target){
-            pos = mid;
-            break;
-        }
-        else if(arr[mid]>target)
-            end = mid -1;   
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+
+        // Check if x is present at mid
+        if (arr[mid] == x)
+            return mid;
+
+        // If x greater, ignore left half
+        if (arr[mid] < x)
+            low = mid + 1;
+
+        // If x is smaller, ignore right half
         else
-            start = mid + 1;
+            high = mid - 1;
     }
-    
-    if(pos==-1)
-        cout<<target<<" is not present in the array"<<endl;
-    else
-        cout<<target<<" is present in the array at position "<<pos<<endl;
-        
+
+    // If we reach here, then element was not present
+    return -1;
+}
+
+// Driver code
+int main(void)
+{
+    int arr[] = { 2, 3, 4, 10, 40 };
+    int x = 10;
+    int n = sizeof(arr) / sizeof(arr[0]);
+    int result = binarySearch(arr, 0, n - 1, x);
+    (result == -1)
+        ? cout << "Element is not present in array"
+        : cout << "Element is present at index " << result;
     return 0;
 }
